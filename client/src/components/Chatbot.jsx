@@ -17,7 +17,7 @@ const Chatbot = () => {
             msgbox.current.scrollTop = msgbox.current.scrollHeight;
         }
     };
-
+    let base_url = 'https://hakaton-server.vercel.app';
     const fetchData = async (e) => {
         e.preventDefault();
 
@@ -39,7 +39,7 @@ const Chatbot = () => {
                 ...prevMessages,
                 { prompt: prompt, answer: "..." },
             ]);
-            const res = await fetch('https://hakaton-server.vercel.app/gemini', {
+            const res = await fetch(`${base_url}/gemini`, {
                 method: 'post',
                 body: JSON.stringify(promptData),
                 headers: {
