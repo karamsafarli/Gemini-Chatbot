@@ -38,7 +38,7 @@ const Chatbot = () => {
                 ...prevMessages,
                 { prompt: prompt, answer: "..." },
             ]);
-            const res = await fetch('https://hakaton-server.vercel.app/gemini', {
+            const res = await fetch('https://odd-teal-stingray-boot.cyclic.app/gemini', {
                 method: 'post',
                 body: JSON.stringify(promptData),
                 headers: {
@@ -46,7 +46,6 @@ const Chatbot = () => {
                 }
             });
             const resdata = await res.json();
-            console.log(resdata)
             setMessages((prevMessages) => {
                 const updatedMessages = [...prevMessages];
                 updatedMessages[prevMessages.length - 1].answer = resdata;
@@ -104,7 +103,6 @@ const Chatbot = () => {
                 prevArr.push(fileURL);
                 return prevArr;
             })
-            console.log(fileURL)
             try {
                 const result = await fileToGenerativePart(file, file.type);
                 setFiles((prev) => {

@@ -25,7 +25,6 @@ app.get('/', (req, res) => {
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 app.post('/gemini', async (req, res) => {
-
     const { prompt, imageParts } = req.body;
     const modelName = imageParts.length > 0 ? "gemini-pro-vision" : "gemini-pro"
     const model = genAI.getGenerativeModel({ model: modelName });
