@@ -130,7 +130,7 @@ const Chatbot = () => {
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(image, 0, 0, width, height);
 
-                    const compressedImageData = canvas.toDataURL(mimeType, 0.5); 
+                    const compressedImageData = canvas.toDataURL(mimeType, 0.3); 
 
                     resolve({
                         inlineData: {
