@@ -32,7 +32,8 @@ const Chatbot = () => {
 
         try {
             setPrompt('');
-            // setFiles([]);
+            setFiles([]);
+            setImages([]);
             setIsLoading(true);
             setMessages((prevMessages) => [
                 ...prevMessages,
