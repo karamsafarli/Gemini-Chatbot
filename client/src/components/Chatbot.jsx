@@ -17,7 +17,8 @@ const Chatbot = () => {
             msgbox.current.scrollTop = msgbox.current.scrollHeight;
         }
     };
-    let base_url = 'https://hakaton-server.vercel.app';
+    // let base_url = 'https://hakaton-server.vercel.app';
+    let base_url = 'http://localhost:3001';
     const fetchData = async (e) => {
         e.preventDefault();
 
@@ -65,6 +66,34 @@ const Chatbot = () => {
     const [files, setFiles] = useState([]);
     const [images, setImages] = useState([]);
 
+    // const fileToGenerativePart = async (file, mimeType) => {
+    //     return new Promise((resolve, reject) => {
+    //         if (!file) {
+    //             reject(new Error('No file provided.'));
+    //             return;
+    //         }
+
+    //         const reader = new FileReader();
+
+    //         reader.onload = () => {
+    //             const base64Data = reader.result.split(',')[1];
+
+    //             resolve({
+    //                 inlineData: {
+    //                     data: base64Data,
+    //                     mimeType
+    //                 }
+    //             });
+    //         };
+
+    //         reader.onerror = error => {
+    //             reject(error);
+    //         };
+
+    //         reader.readAsDataURL(file);
+    //     });
+    // };
+
     const fileToGenerativePart = async (file, mimeType) => {
         return new Promise((resolve, reject) => {
             if (!file) {
@@ -74,24 +103,52 @@ const Chatbot = () => {
 
             const reader = new FileReader();
 
-            reader.onload = () => {
-                const base64Data = reader.result.split(',')[1];
+            reader.onload = (event) => {
+                const image = new Image();
+                image.src = event.target.result;
 
-                resolve({
-                    inlineData: {
-                        data: base64Data,
-                        mimeType
+                image.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const maxDimensions = 800;
+
+                    let width = image.width;
+                    let height = image.height;
+
+                    if (width > maxDimensions || height > maxDimensions) {
+                        if (width > height) {
+                            height *= maxDimensions / width;
+                            width = maxDimensions;
+                        } else {
+                            width *= maxDimensions / height;
+                            height = maxDimensions;
+                        }
                     }
-                });
+
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(image, 0, 0, width, height);
+
+                    const compressedImageData = canvas.toDataURL(mimeType, 0.5); 
+
+                    resolve({
+                        inlineData: {
+                            data: compressedImageData.split(',')[1],
+                            mimeType,
+                        },
+                    });
+                };
             };
 
-            reader.onerror = error => {
+            reader.onerror = (error) => {
                 reject(error);
             };
 
             reader.readAsDataURL(file);
         });
     };
+
 
 
     const onFileUpload = async (e) => {
@@ -106,6 +163,7 @@ const Chatbot = () => {
             })
             try {
                 const result = await fileToGenerativePart(file, file.type);
+                console.log(result)
                 setFiles((prev) => {
                     const prevFiles = [...prev];
                     prevFiles.push({ inlineData: result.inlineData });
