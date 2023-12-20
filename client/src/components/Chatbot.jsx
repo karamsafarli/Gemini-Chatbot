@@ -17,8 +17,8 @@ const Chatbot = () => {
             msgbox.current.scrollTop = msgbox.current.scrollHeight;
         }
     };
-    // let base_url = 'https://hakaton-server.vercel.app';
-    let base_url = 'https://odd-teal-stingray-boot.cyclic.app';
+    let base_url = 'https://hakaton-server.vercel.app';
+    // let base_url = 'https://odd-teal-stingray-boot.cyclic.app';
     // let base_url = 'http://localhost:3001';
     const fetchData = async (e) => {
         e.preventDefault();
@@ -29,7 +29,7 @@ const Chatbot = () => {
 
         const promptData = {
             prompt,
-            imageParts: [...files]
+            imageParts: files
         };
 
         try {
