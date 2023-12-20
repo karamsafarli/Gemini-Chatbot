@@ -32,7 +32,7 @@ const Chatbot = () => {
 
         try {
             setPrompt('');
-            setFiles([]);
+            // setFiles([]);
             setIsLoading(true);
             setMessages((prevMessages) => [
                 ...prevMessages,
