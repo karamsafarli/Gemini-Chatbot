@@ -38,7 +38,7 @@ const Chatbot = () => {
                 ...prevMessages,
                 { prompt: prompt, answer: "..." },
             ]);
-            const res = await fetch('https://odd-teal-stingray-boot.cyclic.app/gemini', {
+            const res = await fetch('https://hakaton-server.vercel.app/gemini', {
                 method: 'post',
                 body: JSON.stringify(promptData),
                 headers: {
