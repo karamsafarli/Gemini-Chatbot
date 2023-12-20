@@ -163,7 +163,6 @@ const Chatbot = () => {
             })
             try {
                 const result = await fileToGenerativePart(file, file.type);
-                console.log(result)
                 setFiles((prev) => {
                     const prevFiles = [...prev];
                     prevFiles.push({ inlineData: result.inlineData });
