@@ -17,7 +17,8 @@ const Chatbot = () => {
             msgbox.current.scrollTop = msgbox.current.scrollHeight;
         }
     };
-    let base_url = 'https://hakaton-server.vercel.app';
+    // let base_url = 'https://hakaton-server.vercel.app';
+    let base_url = 'https://odd-teal-stingray-boot.cyclic.app';
     // let base_url = 'http://localhost:3001';
     const fetchData = async (e) => {
         e.preventDefault();
@@ -44,7 +45,7 @@ const Chatbot = () => {
                 method: 'post',
                 body: JSON.stringify(promptData),
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 }
             });
             const resdata = await res.json();
@@ -130,7 +131,7 @@ const Chatbot = () => {
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(image, 0, 0, width, height);
 
-                    const compressedImageData = canvas.toDataURL(mimeType, 0.3); 
+                    const compressedImageData = canvas.toDataURL(mimeType, 0.3);
 
                     resolve({
                         inlineData: {
